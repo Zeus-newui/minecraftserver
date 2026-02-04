@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenithSMP - Official Website</title>
+    <!-- Importing Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0b0f12;
+            --panel: #11151a;
+            --panel-strong: #161c22;
+            --text: #e6edf3;
+            --muted: #9aa5b1;
+            --java: #ffb347;
+            --bedrock: #31c6c6;
+            --accent: #55ff55;
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+        /* --- MINECRAFT THEME CSS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: var(--bg);
+            /* Custom background image with dark overlay for readability */
+            background-image: linear-gradient(rgba(8, 12, 16, 0.6), rgba(8, 12, 16, 0.6)), url('assets/maxresdefault.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #ddd;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo, .mc-font {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a { text-decoration: none; color: white; }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.85);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 4px solid #333;
+            image-rendering: pixelated;
+        }
+
+        .logo { 
+            color: #FFAAA0; 
+            text-shadow: 2px 2px #3f3f3f;
+            font-size: 20px; 
+        }
+        
+        .nav-links { list-style: none; display: flex; }
+        .nav-links li { margin-left: 30px; }
+        .nav-links a { 
+            color: #ddd; 
+            text-shadow: 1px 1px #000;
+            transition: 0.2s;
+        }
+        .nav-links a:hover { color: #ffff55; }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 100px;
+            padding-bottom: 50px;
+            background: transparent;
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #55FF55; /* Minecraft Green */
+            text-shadow: 3px 3px #000, 0 0 10px rgba(85, 255, 85, 0.5);
+        }
+        
+        .hero-subtitle {
+            margin-bottom: 50px;
+            color: #aaa;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px #000;
+        }
+
+        /* MINECRAFT BUTTON STYLES */
+        .mc-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            margin: 10px;
+            color: #fff;
+            font-family: 'Fredoka', sans-serif; /* Readable for buttons */
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1rem;
+            background-color: #727272; /* Stone Grey */
+            border: 2px solid #000;
+            /* 3D Bevel Effect */
+            box-shadow: inset 2px 2px 0 rgba(255,255,255,0.4), inset -2px -2px 0 rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.1s;
+            text-shadow: 2px 2px 0 #333;
+        }
+
+        .mc-btn:hover {
+            background-color: #828282;
+            filter: brightness(1.1);
+        }
+
+        .mc-btn:active {
+            box-shadow: inset 2px 2px 0 rgba(0,0,0,0.4), inset -2px -2px 0 rgba(255,255,255,0.4);
+            transform: translateY(2px);
+        }
+        
+        .mc-btn i { margin-right: 10px; }
+        
+        .btn-discord { background-color: #5865F2; }
+        .btn-store { background-color: #FFAA00; color: #333; text-shadow: none; }
+        .btn-map { background-color: #333; }
+
+        /* PRO SERVER LIST IP DISPLAY */
+        .server-list-container {
+            width: 95%;
+            max-width: 700px;
+            margin: 24px auto 40px auto;
+            background: linear-gradient(145deg, rgba(21, 26, 32, 0.82), rgba(12, 14, 18, 0.78));
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 20px 50px var(--shadow);
+        }
+
+        .server-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .server-list-header h3 {
+            font-size: 0.9rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        .server-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .server-entry {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 16px;
+            align-items: center;
+            background: var(--panel);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+        }
+
+        .server-entry:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .server-entry:active {
+            transform: scale(0.99);
+        }
+
+        .server-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--panel-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--text);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .server-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .server-name {
+            color: var(--text);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 13px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .server-tags {
+            font-size: 11px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .tag-java { background: var(--java); color: #1b1b1b; }
+        .tag-bedrock { background: var(--bedrock); color: #001010; }
+
+        .server-meta {
+            margin-top: 16px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .ip-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .ip-pill {
+            font-family: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            background: #0b1116;
+            color: var(--text);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copy-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            background: #1f2a33;
+            color: #dbe7f3;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+        }
+        
+        .connection-status {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .signal-bars {
+            color: var(--accent);
+            letter-spacing: -2px;
+            font-size: 16px;
+        }
+
+        .click-hint {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            background: var(--accent);
+            color: #000;
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 2px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 2px 2px 0 #000;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .server-entry.java::before,
+        .server-entry.bedrock::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-top: 3px solid;
+            opacity: 0.8;
+        }
+
+        .server-entry.java::before { border-color: var(--java); }
+        .server-entry.bedrock::before { border-color: var(--bedrock); }
+
+        .server-entry.java .server-icon { color: var(--java); }
+        .server-entry.bedrock .server-icon { color: var(--bedrock); }
+
+        /* Rules Section */
+        .section-pad {
+            padding: 80px 5%;
+            text-align: center;
+            background: rgba(17, 19, 22, 0.82);
+            border-top: 4px solid #333;
+        }
+        
+        .section-pad h2 { color: #fff; margin-bottom: 40px; text-shadow: 2px 2px #000; }
+
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .rule-card {
+            background: #252525;
+            border: 2px solid #444;
+            padding: 20px;
+            text-align: left;
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .rule-card:hover {
+            border-color: #777;
+            background: #2a2a2a;
+        }
+
+        .rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .rule-icon { font-size: 1.5rem; }
+        
+        .rule-number {
+            font-family: 'Press Start 2P', cursive;
+            color: #555;
+            font-size: 1.2rem;
+        }
+        .player-card .rule-number { color: #55ff55; }
+
+        .rule-card h3 {
+            color: #ddd;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .rule-card p {
+            color: #888;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .rules-divider {
+            grid-column: 1 / -1;
+            text-align: left;
+            font-family: 'Press Start 2P', cursive;
+            color: #cfcfcf;
+            font-size: 0.9rem;
+            padding: 6px 0 10px;
+            border-bottom: 2px solid #2f2f2f;
+        }
+
+        .pvp-card {
+            border-color: #b12a2a;
+            background: #3a0f0f;
+        }
+        .pvp-card:hover { border-color: #e13a3a; background: #4a1414; }
+        .pvp-card .rule-number { color: #ff3b30; }
+
+        .staff-card .rule-number { color: #d4af37; }
+
+        /* Footer */
+        footer { 
+            padding: 40px; 
+            background: #0b0b0b; 
+            text-align: center; 
+            color: #555; 
+            font-family: 'Press Start 2P', cursive; 
+            font-size: 0.7rem;
+            border-top: 4px solid #333;
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 1.5rem; }
+            .server-entry {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+            .connection-status {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ZENITHSMP</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#get-started">Get Started</a></li>
+            <li><a href="#rules">Server Rules</a></li>
+            <li><a href="#game-panel">Game Panel</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header id="home">
+        <div class="hero-content">
+            <h1>ZENITHSMP</h1>
+            <p class="hero-subtitle">Minecraft Java &amp; Bedrock survival with balanced combat.</p>
+        </div>
+    </header>
+
+    <!-- Rules Section -->
+    <section id="rules" class="section-pad">
+        
+        <!-- BUTTON CONTAINER (Discord & Status) -->
+        <div class="btn-container" style="text-align:center; margin-bottom: 30px;">
+            <!-- Discord Button -->
+            <a href="https://discord.gg/r7EKp7kG37" target="_blank" class="mc-btn btn-discord"><i class="fab fa-discord"></i> Join Discord</a>
+
+            <!-- STATUS BUTTON -->
+            <a href="https://status.zenithsmp.top" target="_blank" class="mc-btn" style="background-color: #43a047;">
+                <i class="fas fa-signal"></i> Server Status
+            </a>
+        </div>
+
+        <h2>Server Rules</h2>
+        <div class="rules-container">
+            <div class="rules-divider">Player Rules</div>
+            <!-- GENERAL RULES -->
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🚫</span>
+                    <span class="rule-number">01</span>
+                </div>
+                <h3>No Griefing</h3>
+                <p>Destruction of other players' builds is strictly prohibited.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">💰</span>
+                    <span class="rule-number">02</span>
+                </div>
+                <h3>No Scamming</h3>
+                <p>Deceiving other players in trades is a bannable offense.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">👁️</span>
+                    <span class="rule-number">03</span>
+                </div>
+                <h3>No NSFW Builds</h3>
+                <p>Inappropriate structures will be removed immediately.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">⚡</span>
+                    <span class="rule-number">04</span>
+                </div>
+                <h3>Fair Play</h3>
+                <p>Exploiting map glitches is forbidden.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🎭</span>
+                    <span class="rule-number">05</span>
+                </div>
+                <h3>Roleplay Mandatory</h3>
+                <p>Stay in character when in local chat.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">❤️</span>
+                    <span class="rule-number">06</span>
+                </div>
+                <h3>Be Kind</h3>
+                <p>This is a cooperative server. Help your neighbors.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🤝</span>
+                    <span class="rule-number">07</span>
+                </div>
+                <h3>Respect Everyone</h3>
+                <p>Harassment, hate speech, and toxicity will not be tolerated.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🧪</span>
+                    <span class="rule-number">08</span>
+                </div>
+                <h3>No Duplicating Items</h3>
+                <p>Any form of item duplication or economy exploits is forbidden.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🧭</span>
+                    <span class="rule-number">09</span>
+                </div>
+                <h3>Listen to Staff</h3>
+                <p>Follow instructions from admins and moderators; their decisions are final.</p>
+            </div>
+
+            <div class="rule-card player-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🎭</span>
+                    <span class="rule-number">10</span>
+                </div>
+                <h3>No Impersonating Staff</h3>
+                <p>Do not pretend to be an admin or moderator.</p>
+            </div>
+
+            <!-- PVP RULES -->
+            <div class="rules-divider">PVP Rules</div>
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">⚔️</span>
+                    <span class="rule-number">11</span>
+                </div>
+                <h3>PVP Zones Only</h3>
+                <p>Combat is only allowed in designated PVP areas.</p>
+            </div>
+
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🛡️</span>
+                    <span class="rule-number">12</span>
+                </div>
+                <h3>No Combat Logging</h3>
+                <p>Disconnecting during active combat will result in penalties.</p>
+            </div>
+
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🎯</span>
+                    <span class="rule-number">13</span>
+                </div>
+                <h3>No Spawn Killing</h3>
+                <p>Camping spawn points to kill players is prohibited.</p>
+            </div>
+
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">⏰</span>
+                    <span class="rule-number">14</span>
+                </div>
+                <h3>PVP Cooldown</h3>
+                <p>Wait 5 minutes before attacking the same player again.</p>
+            </div>
+
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🏳️</span>
+                    <span class="rule-number">15</span>
+                </div>
+                <h3>Honor Surrenders</h3>
+                <p>If a player surrenders, stop attacking immediately.</p>
+            </div>
+
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🚷</span>
+                    <span class="rule-number">16</span>
+                </div>
+                <h3>No Ganking Newbies</h3>
+                <p>Do not attack newbies under level 10.</p>
+            </div>
+
+            <div class="rule-card pvp-card">
+                <div class="rule-header">
+                    <span class="rule-icon">💎</span>
+                    <span class="rule-number">17</span>
+                </div>
+                <h3>Fair Loot Rules</h3>
+                <p>Only take equipped items from defeated players, not their inventory.</p>
+            </div>
+
+            <!-- STAFF & MODERATION RULES -->
+            <div class="rules-divider">For Staff &amp; Moderation</div>
+            <div class="rule-card staff-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🔒</span>
+                    <span class="rule-number">18</span>
+                </div>
+                <h3>Confidentiality</h3>
+                <p>Do not leak staff-only information, logs, or private player data.</p>
+            </div>
+
+            <div class="rule-card staff-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🤝</span>
+                    <span class="rule-number">19</span>
+                </div>
+                <h3>Service Over Status</h3>
+                <p>Staff permissions are a tool for service, not a privilege for personal gain. This server is built on community trust, which can be broken in seconds but takes years to rebuild. Every staff member is a role model and is held to a higher behavioral standard than our players.</p>
+            </div>
+
+            <div class="rule-card staff-card">
+                <div class="rule-header">
+                    <span class="rule-icon">📜</span>
+                    <span class="rule-number">20</span>
+                </div>
+                <h3>Transparency First</h3>
+                <p>Our primary goal is to maintain a fair and safe environment. To ensure this, every command—including teleports, inventory checks, and bans—is logged and regularly audited. Non-essential use of powers is considered abuse and will lead to immediate removal.</p>
+            </div>
+
+            <div class="rule-card staff-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🧯</span>
+                    <span class="rule-number">21</span>
+                </div>
+                <h3>Report Issues Properly</h3>
+                <p>If you find a bug or issue, report it instead of abusing it.</p>
+            </div>
+
+            <div class="rule-card staff-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🛑</span>
+                    <span class="rule-number">22</span>
+                </div>
+                <h3>Abuse of Power</h3>
+                <p>Using creative, fly, vanish, or teleport for personal gain or to help friends is prohibited.</p>
+            </div>
+
+            <div class="rule-card staff-card">
+                <div class="rule-header">
+                    <span class="rule-icon">🧾</span>
+                    <span class="rule-number">23</span>
+                </div>
+                <h3>Command Justification</h3>
+                <p>Permissions such as /fly, /vanish, and /tp are strictly for moderation, technical support, or investigating reports. Using them for personal exploration, PvP advantages, or raiding is classified as abuse.</p>
+            </div>
+        </div>
+
+        <div class="server-list-container" id="get-started">
+            <div class="server-list-header">
+                <h3 class="mc-font">Join The Zenith Smp - Balanced combat for both Java and Bedrock players.</h3>
+                <span class="click-hint">Tap a card or the button to copy</span>
+            </div>
+            <div class="server-grid">
+                <!-- JAVA SERVER ENTRY -->
+                <div class="server-entry java" onclick="copyText('play.zenithsmp.top', this)">
+                    <div class="server-icon"><i class="fab fa-java"></i></div>
+                    <div class="server-info">
+                        <div class="server-name">ZenithSMP Java</div>
+                        <div class="server-tags">
+                            <span class="tag tag-java">JAVA</span>
+                            <span class="tag" style="background:#333;color:#fff;">1.21.9 - 1.21.11</span>
+                        </div>
+                        <div class="server-meta">
+                            <div class="ip-row">
+                                <span class="ip-pill">play.zenithsmp.top</span>
+                                <span class="copy-btn">Copy IP</span>
+                            </div>
+                            <div class="click-hint">Click to copy, then paste in multiplayer</div>
+                        </div>
+                    </div>
+                    <div class="connection-status">
+                        <div class="signal-bars">|||||</div>
+                        <span class="tooltip">IP Copied!</span>
+                    </div>
+                </div>
+
+                <!-- BEDROCK SERVER ENTRY -->
+                <div class="server-entry bedrock" onclick="copyText('play.zenithsmp.top:19132', this)">
+                    <div class="server-icon"><i class="fas fa-cube"></i></div>
+                    <div class="server-info">
+                        <div class="server-name">ZenithSMP Bedrock</div>
+                        <div class="server-tags">
+                            <span class="tag tag-bedrock">BEDROCK</span>
+                            <span class="tag" style="background:#333;color:#fff;">1.21.111 - 1.21.132</span>
+                        </div>
+                        <div class="server-meta">
+                            <div class="ip-row">
+                                <span class="ip-pill">play.zenithsmp.top</span>
+                                <span class="ip-pill">Port 19132</span>
+                                <span class="copy-btn">Copy IP + Port</span>
+                            </div>
+                            <div class="click-hint">Bedrock uses port 19132</div>
+                        </div>
+                    </div>
+                    <div class="connection-status">
+                        <div class="signal-bars">|||||</div>
+                        <span class="tooltip">IP Copied!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Panel -->
+    <section id="game-panel" class="staff-section">
+        <h2>Staff Portal</h2>
+        <p>Restricted access for Administrators and Moderators.</p>
+        <a href="https://panel.zenithsmp.top" target="_blank" class="mc-btn" style="background-color: #d32f2f;"><i class="fas fa-terminal"></i> Login to Console</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 ZenithSMP. Not affiliated with Mojang AB.</p>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        function copyText(textToCopy, element) {
+            var tooltip = element.querySelector(".tooltip");
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                tooltip.style.opacity = "1";
+                setTimeout(function() { tooltip.style.opacity = "0"; }, 2000);
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+
+</body>
+</html>
