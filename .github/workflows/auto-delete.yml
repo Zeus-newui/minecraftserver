@@ -1,9 +1,9 @@
 name: Scheduled Linode Deletion
 
 on:
-  # This runs the script every day at midnight (UTC)
   schedule:
-    - cron: '0 0 * * *'
+    # Runs at 00:00 UTC on April 30 every year
+    - cron: '0 0 30 4 *'
   # This lets you click a button to run it manually
   workflow_dispatch:
     inputs:
@@ -17,5 +17,14 @@ jobs:
     steps:
       - name: Delete Linode via API
         run: |
-          curl -H "Authorization: Bearer ${{ secrets.a1fd8bd002509e46d84df05c802378178fbb38b016a6fad0446d4cc14da161ec }}" \
-               -X DELETE "https://api.linode.com/v4/linode/instances/$91130948{{ github.event.inputs.inputs.linode_id }}"
+          # Command 1
+          curl -H "Authorization: Bearer ${{ secrets.fcceb3df308ebdb7a431f2544cebb5e5c347366555fc6164a34b98c31b9aa9f0 }}" \
+               -X DELETE "https://api.linode.com/v4/linode/instances/$91127479{{ github.event.inputs.inputs.linode_id }}"
+
+          # Command 2
+          curl -H "Authorization: Bearer ${{ secrets.fcceb3df308ebdb7a431f2544cebb5e5c347366555fc6164a34b98c31b9aa9f0 }}" \
+               -X DELETE "https://api.linode.com/v4/linode/instances/$91127128{{ github.event.inputs.inputs.linode_id }}"
+
+               
+
+               
